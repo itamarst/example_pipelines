@@ -24,9 +24,15 @@ platforms = [
 python = ">=3.11,<3.14"
 ipython = "*"
 
+[feature.gil.tasks]
+custom-deps = "uv pip install $CUSTOM_DEPS"
+
 [feature.freethreading.dependencies]
 python-freethreading = ">=3.14,<3.15"
 ipython = "*"
+
+[feature.freethreading.tasks]
+custom-deps = "uv pip install $CUSTOM_DEPS"
 
 # ---------------------------------------------------------------------------
 # PyPI-only environment: scientific stack from PyPI.
@@ -189,6 +195,19 @@ run-all-mkl = { depends-on = [
 ] }
 
 run-all = { depends-on = ["run-all-common"] }
+
+
+[tasks.custom-deps-all]
+depends-on = [
+  {task = "custom-deps", environment="pypi-gil"},
+  {task = "custom-deps", environment="pypi-freethreading"},
+  {task = "custom-deps", environment="openblas-pthreads-gil"},
+  {task = "custom-deps", environment="openblas-pthreads-freethreading"},
+  {task = "custom-deps", environment="openblas-openmp-gil"},
+  {task = "custom-deps", environment="openblas-openmp-freethreading"},
+  {task = "custom-deps", environment="mkl-gil"},
+  {task = "custom-deps", environment="mkl-freethreading"},
+]
 
 [target.osx-64.tasks]
 run-all = { depends-on = ["run-all-common", "run-all-newaccelerate", "run-all-mkl"] }
