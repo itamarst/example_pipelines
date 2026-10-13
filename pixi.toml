@@ -25,14 +25,14 @@ python = ">=3.11,<3.14"
 ipython = "*"
 
 [feature.gil.tasks]
-custom-deps = "uv pip install $CUSTOM_DEPS"
+custom-deps = "VIRTUAL_ENV=$PWD uv pip install $CUSTOM_DEPS"
 
 [feature.freethreading.dependencies]
 python-freethreading = ">=3.14,<3.15"
 ipython = "*"
 
 [feature.freethreading.tasks]
-custom-deps = "uv pip install $CUSTOM_DEPS"
+custom-deps = "VIRTUAL_ENV=$PWD uv pip install $CUSTOM_DEPS"
 
 # ---------------------------------------------------------------------------
 # PyPI-only environment: scientific stack from PyPI.
